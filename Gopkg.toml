@@ -49,7 +49,7 @@ required = [
 
 [[constraint]]
   name = "k8s.io/client-go"
-  branch = "release-6.0"
+  branch = "master"
 
 [prune]
   non-go = true

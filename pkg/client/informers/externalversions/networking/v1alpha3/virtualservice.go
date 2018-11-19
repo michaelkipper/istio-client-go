@@ -22,10 +22,10 @@ package v1alpha3
 import (
 	time "time"
 
-	networking_v1alpha3 "github.com/aspenmesh/istio-client-go/pkg/apis/networking/v1alpha3"
-	versioned "github.com/aspenmesh/istio-client-go/pkg/client/clientset/versioned"
-	internalinterfaces "github.com/aspenmesh/istio-client-go/pkg/client/informers/externalversions/internalinterfaces"
-	v1alpha3 "github.com/aspenmesh/istio-client-go/pkg/client/listers/networking/v1alpha3"
+	networking_v1alpha3 "github.com/michaelkipper/istio-client-go/pkg/apis/networking/v1alpha3"
+	versioned "github.com/michaelkipper/istio-client-go/pkg/client/clientset/versioned"
+	internalinterfaces "github.com/michaelkipper/istio-client-go/pkg/client/informers/externalversions/internalinterfaces"
+	v1alpha3 "github.com/michaelkipper/istio-client-go/pkg/client/listers/networking/v1alpha3"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"

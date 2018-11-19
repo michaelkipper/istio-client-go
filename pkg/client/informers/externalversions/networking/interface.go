@@ -20,8 +20,8 @@ limitations under the License.
 package networking
 
 import (
-	internalinterfaces "github.com/aspenmesh/istio-client-go/pkg/client/informers/externalversions/internalinterfaces"
-	v1alpha3 "github.com/aspenmesh/istio-client-go/pkg/client/informers/externalversions/networking/v1alpha3"
+	internalinterfaces "github.com/michaelkipper/istio-client-go/pkg/client/informers/externalversions/internalinterfaces"
+	v1alpha3 "github.com/michaelkipper/istio-client-go/pkg/client/informers/externalversions/networking/v1alpha3"
 )
 
 // Interface provides access to each of this group's versions.

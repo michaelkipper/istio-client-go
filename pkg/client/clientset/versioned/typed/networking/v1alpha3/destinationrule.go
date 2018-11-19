@@ -20,8 +20,8 @@ limitations under the License.
 package v1alpha3
 
 import (
-	v1alpha3 "github.com/aspenmesh/istio-client-go/pkg/apis/networking/v1alpha3"
-	scheme "github.com/aspenmesh/istio-client-go/pkg/client/clientset/versioned/scheme"
+	v1alpha3 "github.com/michaelkipper/istio-client-go/pkg/apis/networking/v1alpha3"
+	scheme "github.com/michaelkipper/istio-client-go/pkg/client/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
