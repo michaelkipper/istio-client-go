@@ -1,4 +1,4 @@
-PACKAGE := github.com/aspenmesh/istio-client-go
+PACKAGE := github.com/michaelkipper/istio-client-go
 
 ifeq ($(BRANCH_NAME)$(BUILD_ID),)
   BUILDER_TAG := istio-client-go-builder
