@@ -32,35 +32,19 @@ required = [
   "k8s.io/code-generator/cmd/client-gen"
 ]
 
-[[constraint]]
-  name = "k8s.io/code-generator"
-  branch = "master"
-
-[[constraint]]
-  name = "k8s.io/apimachinery"
-  branch = "master"
-
-[[constraint]]
-  name = "istio.io/api"
-  branch = "release-1.0"
-
-[[constraint]]
-  name = "k8s.io/client-go"
-  branch = "master"
-
 [prune]
   non-go = true
   go-tests = true
   unused-packages = true
 
-  [[prune.project]]
-    name = "k8s.io/code-generator"
-    unused-packages = false
-    non-go = false
-    go-tests = false
+[[prune.project]]
+  name = "k8s.io/code-generator"
+  unused-packages = false
+  non-go = false
+  go-tests = false
 
-  [[prune.project]]
-    name = "k8s.io/gengo"
-    unused-packages = false
-    non-go = false
-    go-tests = false
+[[prune.project]]
+  name = "k8s.io/gengo"
+  unused-packages = false
+  non-go = false
+  go-tests = false
