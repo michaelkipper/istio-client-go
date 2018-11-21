@@ -36,6 +36,10 @@ func (vs *VirtualService) GetSpecMessage() proto.Message {
 	return &vs.Spec.VirtualService
 }
 
+func (vs *VirtualService) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(vs.TypeMeta, vs.ObjectMeta, vs.GetSpecMessage())
+}
+
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // VirtualServiceList is a list of VirtualService resources

@@ -9,6 +9,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/tools/clientcmd"
 
+	_ "github.com/golang/protobuf/jsonpb"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 
 	log "github.com/sirupsen/logrus"

@@ -40,13 +40,15 @@
   revision = "23def4e6c14b4da8ac2ed8007337bc5eb5007998"
 
 [[projects]]
-  digest = "1:63ccdfbd20f7ccd2399d0647a7d100b122f79c13bb83da9660b1598396fd9f62"
+  digest = "1:224dbf3a601f51cbf47824d46be29562fb1e897ca0ed0908a56b0b79ec71d914"
   name = "github.com/golang/protobuf"
   packages = [
+    "jsonpb",
     "proto",
     "ptypes",
     "ptypes/any",
     "ptypes/duration",
+    "ptypes/struct",
     "ptypes/timestamp",
   ]
   pruneopts = "NUT"
@@ -120,6 +122,14 @@
   version = "v1.1.5"
 
 [[projects]]
+  digest = "1:4059c14e87a2de3a434430340521b5feece186c1469eff0834c29a63870de3ed"
+  name = "github.com/konsorten/go-windows-terminal-sequences"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "5c8c8bd35d3832f5d134ae1e1e375b69a4d25242"
+  version = "v1.0.1"
+
+[[projects]]
   digest = "1:2f42fa12d6911c7b7659738758631bec870b7e9b4c6be5444f963cdcfccc191f"
   name = "github.com/modern-go/concurrent"
   packages = ["."]
@@ -150,6 +160,14 @@
   pruneopts = "NUT"
   revision = "5f041e8faa004a95c88a202771f4cc3e991971e6"
   version = "v2.0.1"
+
+[[projects]]
+  digest = "1:d848e2bdc690ea54c4b49894b67a05db318a97ee6561879b814c2c1f82f61406"
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "bcd833dfe83d3cebad139e4a29ed79cb2318bf95"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "1:9d8420bbf131d1618bde6530af37c3799340d3762cc47210c1d9532a4c3a2779"
@@ -488,7 +506,9 @@
   analyzer-version = 1
   input-imports = [
     "github.com/golang/glog",
+    "github.com/golang/protobuf/jsonpb",
     "github.com/golang/protobuf/proto",
+    "github.com/sirupsen/logrus",
     "istio.io/api/authentication/v1alpha1",
     "istio.io/api/networking/v1alpha3",
     "k8s.io/apimachinery/pkg/api/errors",

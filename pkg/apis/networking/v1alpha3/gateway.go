@@ -36,6 +36,10 @@ func (g *Gateway) GetSpecMessage() proto.Message {
 	return &g.Spec.Gateway
 }
 
+func (vs *Gateway) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(vs.TypeMeta, vs.ObjectMeta, vs.GetSpecMessage())
+}
+
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // GatewayList is a list of Gateway resources
