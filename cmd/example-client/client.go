@@ -1,13 +1,72 @@
 package main
 
 import (
-	"log"
 	"os"
 
+	v1alpha3 "github.com/michaelkipper/istio-client-go/pkg/apis/networking/v1alpha3"
 	versionedclient "github.com/michaelkipper/istio-client-go/pkg/client/clientset/versioned"
+	istiov1alpha3 "istio.io/api/networking/v1alpha3"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/tools/clientcmd"
+
+	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
+
+	log "github.com/sirupsen/logrus"
 )
+
+func createAndDeleteVirtualService(client *versionedclient.Clientset, namespace string) error {
+	spec := v1alpha3.VirtualService{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "test-virtual-service",
+		},
+		Spec: v1alpha3.VirtualServiceSpec{
+			VirtualService: istiov1alpha3.VirtualService{
+				Hosts: []string{
+					"*",
+				},
+				Gateways: []string{
+					"test-gateway",
+				},
+				Http: []*istiov1alpha3.HTTPRoute{
+					&istiov1alpha3.HTTPRoute{
+						Match: []*istiov1alpha3.HTTPMatchRequest{
+							&istiov1alpha3.HTTPMatchRequest{
+								Uri: &istiov1alpha3.StringMatch{
+									MatchType: &istiov1alpha3.StringMatch_Prefix{
+										Prefix: "/",
+									},
+								},
+							},
+						},
+						Route: []*istiov1alpha3.DestinationWeight{
+							&istiov1alpha3.DestinationWeight{
+								Destination: &istiov1alpha3.Destination{
+									Host: "test-service",
+									Port: &istiov1alpha3.PortSelector{
+										Port: &istiov1alpha3.PortSelector_Number{
+											Number: uint32(8080),
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	vs, err := client.NetworkingV1alpha3().VirtualServices(namespace).Create(&spec)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	err = client.NetworkingV1alpha3().VirtualServices(namespace).Delete(vs.GetName(), &metav1.DeleteOptions{})
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return nil
+}
 
 func main() {
 	kubeconfig := os.Getenv("KUBECONFIG")
@@ -67,4 +126,15 @@ func main() {
 			log.Fatalf("Failed to get MeshPolicy named %s", mp.ObjectMeta.Name)
 		}
 	}
+
+	// Test Gateways
+	gList, err := ic.NetworkingV1alpha3().Gateways(namespace).List(metav1.ListOptions{})
+	if err != nil {
+		log.Fatalf("Failed to list Gateways: %+v", err)
+	}
+	for i, g := range gList.Items {
+		log.Printf("Gateway %d: %s", i, g.ObjectMeta.GetName())
+	}
+
+	createAndDeleteVirtualService(ic, namespace)
 }
