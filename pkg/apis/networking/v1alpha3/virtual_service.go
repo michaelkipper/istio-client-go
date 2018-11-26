@@ -17,7 +17,6 @@ package v1alpha3
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/proto"
