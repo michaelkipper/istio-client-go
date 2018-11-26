@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 
+	types "github.com/gogo/protobuf/types"
 	v1alpha3 "github.com/michaelkipper/istio-client-go/pkg/apis/networking/v1alpha3"
 	versionedclient "github.com/michaelkipper/istio-client-go/pkg/client/clientset/versioned"
 	istiov1alpha3 "istio.io/api/networking/v1alpha3"
@@ -39,8 +40,11 @@ func createAndDeleteVirtualService(client *versionedclient.Clientset, namespace 
 								},
 							},
 						},
-						Route: []*istiov1alpha3.DestinationWeight{
-							&istiov1alpha3.DestinationWeight{
+						Timeout: &types.Duration{
+							Seconds: int64(10),
+						},
+						Route: []*istiov1alpha3.HTTPRouteDestination{
+							&istiov1alpha3.HTTPRouteDestination{
 								Destination: &istiov1alpha3.Destination{
 									Host: "test-service",
 									Port: &istiov1alpha3.PortSelector{
@@ -56,9 +60,11 @@ func createAndDeleteVirtualService(client *versionedclient.Clientset, namespace 
 			},
 		},
 	}
+
+	log.WithField("name", spec.GetName()).Info("Creating VirtualService")
 	vs, err := client.NetworkingV1alpha3().VirtualServices(namespace).Create(&spec)
 	if err != nil {
-		log.Panic(err)
+		log.WithField("error", err).Panic("Could not create virtual service")
 	}
 
 	err = client.NetworkingV1alpha3().VirtualServices(namespace).Delete(vs.GetName(), &metav1.DeleteOptions{})
@@ -74,6 +80,8 @@ func main() {
 	namespace := os.Getenv("NAMESPACE")
 	if len(kubeconfig) == 0 || len(namespace) == 0 {
 		log.Fatalf("Environment variables KUBECONFIG and NAMESPACE need to be set")
+	} else {
+		log.WithFields(log.Fields{"kubeconfig": kubeconfig, "namespace": namespace}).Info("Building config")
 	}
 	restConfig, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
 	if err != nil {
@@ -91,7 +99,7 @@ func main() {
 	}
 	for i := range vsList.Items {
 		vs := vsList.Items[i]
-		log.Printf("Index: %d VirtualService Hosts: %+v\n", i, vs.Spec.GetHosts())
+		log.Infof("Index: %d VirtualService Hosts: %+v\n", i, vs.Spec.VirtualService.GetHosts())
 	}
 
 	// Test DestinationRules
@@ -111,7 +119,7 @@ func main() {
 	}
 	for i := range pList.Items {
 		p := pList.Items[i]
-		log.Printf("Index: %d Policy Targets: %+v\n", i, p.Spec.GetTargets())
+		log.Infof("Index: %d Policy Targets: %+v\n", i, p.Spec.GetTargets())
 	}
 
 	// Test MeshPolicies
@@ -121,7 +129,7 @@ func main() {
 	}
 	for i := range mpList.Items {
 		mp := mpList.Items[i]
-		log.Printf("Index: %d MeshPolicy Name: %+v\n", i, mp.ObjectMeta.Name)
+		log.Infof("Index: %d MeshPolicy Name: %+v\n", i, mp.ObjectMeta.Name)
 		_, err := ic.AuthenticationV1alpha1().MeshPolicies().Get(mp.ObjectMeta.Name, metav1.GetOptions{})
 		if err != nil {
 			log.Fatalf("Failed to get MeshPolicy named %s", mp.ObjectMeta.Name)
@@ -134,7 +142,7 @@ func main() {
 		log.Fatalf("Failed to list Gateways: %+v", err)
 	}
 	for i, g := range gList.Items {
-		log.Printf("Gateway %d: %s", i, g.ObjectMeta.GetName())
+		log.Infof("Gateway %d: %s", i, g.ObjectMeta.GetName())
 	}
 
 	createAndDeleteVirtualService(ic, namespace)

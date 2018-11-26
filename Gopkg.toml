@@ -32,6 +32,14 @@ required = [
   "k8s.io/code-generator/cmd/client-gen"
 ]
 
+[[constraint]]
+  name = "istio.io/api"
+  branch = "master"
+
+[[constraint]]
+  name = "k8s.io/apimachinery"
+  branch = "master"
+
 [prune]
   non-go = true
   go-tests = true

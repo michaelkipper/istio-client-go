@@ -18,10 +18,11 @@
   version = "v1.1.1"
 
 [[projects]]
-  digest = "1:983cb7d70588854e2706e32c61698bbf0eab4956fca89e86c1c10d7213679a0e"
+  digest = "1:a35d141bba894725d1aa63523e146ab83c30475d23970ef402165eb96bd5907a"
   name = "github.com/gogo/protobuf"
   packages = [
     "gogoproto",
+    "jsonpb",
     "proto",
     "protoc-gen-gogo/descriptor",
     "sortkeys",
@@ -162,6 +163,14 @@
   version = "v2.0.1"
 
 [[projects]]
+  digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  pruneopts = "NUT"
+  revision = "792786c7400a136282c1664665ae0a8db921c6c2"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:d848e2bdc690ea54c4b49894b67a05db318a97ee6561879b814c2c1f82f61406"
   name = "github.com/sirupsen/logrus"
   packages = ["."]
@@ -178,12 +187,20 @@
   version = "v1.0.3"
 
 [[projects]]
+  digest = "1:bacb8b590716ab7c33f2277240972c9582d389593ee8d66fc10074e0508b8126"
+  name = "github.com/stretchr/testify"
+  packages = ["assert"]
+  pruneopts = "NUT"
+  revision = "f35b8ab0b5a2cef36673838d662e249dd9c94686"
+  version = "v1.2.2"
+
+[[projects]]
   branch = "master"
-  digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
+  digest = "1:38f553aff0273ad6f367cb0a0f8b6eecbaef8dc6cb8b50e57b6a81c1d5b1e332"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
   pruneopts = "NUT"
-  revision = "3d3f9f413869b949e48070b5bc593aa22cc2b8f2"
+  revision = "e657309f52e71501f9934566ac06dc5c2f7f11a1"
 
 [[projects]]
   branch = "master"
@@ -202,7 +219,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:286347e7534393dccf6e9bb8e912730c02f0de71bc93f820906511817b61cf3a"
+  digest = "1:ae6187c169fc5ec0d8d46483be8ce73e137a6ebb2dac5e1b1280ea04a95e1c2c"
   name = "golang.org/x/oauth2"
   packages = [
     ".",
@@ -212,18 +229,18 @@
     "jwt",
   ]
   pruneopts = "NUT"
-  revision = "f42d05182288abf10faef86d16c0d07b8d40ea2d"
+  revision = "8f65e3013ebad444f13bc19536f7865efc793816"
 
 [[projects]]
   branch = "master"
-  digest = "1:1435bb97e37d0ba44239bcaf413539d3bcfc37098c24f1c795c49d654af5e956"
+  digest = "1:710483a12b766fb0e99ab26cbf6f82df2d958e94cb28890fcb2db96f76d39762"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "NUT"
-  revision = "ec83556a53fe16b65c452a104ea9d1e86a671852"
+  revision = "62eef0e2fa9b2c385f7b2778e763486da6880d37"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -267,7 +284,7 @@
     "internal/gopathwalk",
   ]
   pruneopts = "NUT"
-  revision = "89e258047f9bd4255fae0d48139e1d5ff0a7b8dd"
+  revision = "04b5d21e00f1f47bd824a6ade581e7189bacde87"
 
 [[projects]]
   digest = "1:b63b351b57e64ae8aec1af030dc5e74a2676fcda62102f006ae4411fac1b04c8"
@@ -305,15 +322,15 @@
   version = "v2.2.1"
 
 [[projects]]
-  digest = "1:c03bf532fe5938c522237268b1f5f5786430a7ce79dc222cf7b96e85c932a164"
+  branch = "master"
+  digest = "1:082d92da8b03d780cb6a6c1c1edf0ac26e6d72a1b8adae5ccce9a1677b78999f"
   name = "istio.io/api"
   packages = [
     "authentication/v1alpha1",
     "networking/v1alpha3",
   ]
   pruneopts = "NUT"
-  revision = "6bf9d6613f65c2754a3d90ae916e1806e9d74175"
-  version = "1.0.3"
+  revision = "62032e035e4815144b8eac7a1137b13308c7e66b"
 
 [[projects]]
   branch = "master"
@@ -353,7 +370,7 @@
     "storage/v1beta1",
   ]
   pruneopts = "NUT"
-  revision = "46ad728b8d13de6dffe4396623b098473f626e9e"
+  revision = "b7bd5f2d334ce968edc54f5fdb2ac67ce39c56d5"
 
 [[projects]]
   branch = "master"
@@ -404,7 +421,7 @@
     "third_party/forked/golang/reflect",
   ]
   pruneopts = "NUT"
-  revision = "1b0702fe2927f82126da9c2ecf567f14676f6072"
+  revision = "195a1699ff5cb7fcf4584a4141316e96f39e0f5a"
 
 [[projects]]
   digest = "1:42a707f09f48a7bf410af93f72784d6fe03750f7e038be395f5aea34c3aa1ad4"
@@ -505,10 +522,14 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/gogo/protobuf/jsonpb",
+    "github.com/gogo/protobuf/proto",
+    "github.com/gogo/protobuf/types",
     "github.com/golang/glog",
     "github.com/golang/protobuf/jsonpb",
     "github.com/golang/protobuf/proto",
     "github.com/sirupsen/logrus",
+    "github.com/stretchr/testify/assert",
     "istio.io/api/authentication/v1alpha1",
     "istio.io/api/networking/v1alpha3",
     "k8s.io/apimachinery/pkg/api/errors",
