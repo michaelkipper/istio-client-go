@@ -1,6 +1,6 @@
 /*
-Portions Copyright 2018 The Kubernetes Authors.
-Portions Copyright 2018 Aspen Mesh Authors.
+Portions Copyright 2019 The Kubernetes Authors.
+Portions Copyright 2019 Aspen Mesh Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ package v1alpha1
 import (
 	time "time"
 
-	authentication_v1alpha1 "github.com/michaelkipper/istio-client-go/pkg/apis/authentication/v1alpha1"
+	authenticationv1alpha1 "github.com/michaelkipper/istio-client-go/pkg/apis/authentication/v1alpha1"
 	versioned "github.com/michaelkipper/istio-client-go/pkg/client/clientset/versioned"
 	internalinterfaces "github.com/michaelkipper/istio-client-go/pkg/client/informers/externalversions/internalinterfaces"
 	v1alpha1 "github.com/michaelkipper/istio-client-go/pkg/client/listers/authentication/v1alpha1"
@@ -70,7 +70,7 @@ func NewFilteredMeshPolicyInformer(client versioned.Interface, resyncPeriod time
 				return client.AuthenticationV1alpha1().MeshPolicies().Watch(options)
 			},
 		},
-		&authentication_v1alpha1.MeshPolicy{},
+		&authenticationv1alpha1.MeshPolicy{},
 		resyncPeriod,
 		indexers,
 	)
@@ -81,7 +81,7 @@ func (f *meshPolicyInformer) defaultInformer(client versioned.Interface, resyncP
 }
 
 func (f *meshPolicyInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&authentication_v1alpha1.MeshPolicy{}, f.defaultInformer)
+	return f.factory.InformerFor(&authenticationv1alpha1.MeshPolicy{}, f.defaultInformer)
 }
 
 func (f *meshPolicyInformer) Lister() v1alpha1.MeshPolicyLister {

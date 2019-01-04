@@ -2,3 +2,5 @@ vendor
 *.swp
 _build
 .DS_Store
+.idea
+
