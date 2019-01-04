@@ -1,6 +1,6 @@
 /*
-Portions Copyright 2018 The Kubernetes Authors.
-Portions Copyright 2018 Aspen Mesh Authors.
+Portions Copyright 2019 The Kubernetes Authors.
+Portions Copyright 2019 Aspen Mesh Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ func (c *FakeMeshPolicies) List(opts v1.ListOptions) (result *v1alpha1.MeshPolic
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.MeshPolicyList{}
+	list := &v1alpha1.MeshPolicyList{ListMeta: obj.(*v1alpha1.MeshPolicyList).ListMeta}
 	for _, item := range obj.(*v1alpha1.MeshPolicyList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
@@ -113,7 +113,7 @@ func (c *FakeMeshPolicies) DeleteCollection(options *v1.DeleteOptions, listOptio
 // Patch applies the patch and returns the patched meshPolicy.
 func (c *FakeMeshPolicies) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.MeshPolicy, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootPatchSubresourceAction(meshpoliciesResource, name, data, subresources...), &v1alpha1.MeshPolicy{})
+		Invokes(testing.NewRootPatchSubresourceAction(meshpoliciesResource, name, pt, data, subresources...), &v1alpha1.MeshPolicy{})
 	if obj == nil {
 		return nil, err
 	}

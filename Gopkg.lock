@@ -18,6 +18,14 @@
   version = "v1.1.1"
 
 [[projects]]
+  digest = "1:32598368f409bbee79deb9d43569fcd92b9fb27f39155f5e166b3371217f051f"
+  name = "github.com/evanphx/json-patch"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "72bf35d0ff611848c1dc9df0f976c81192392fa5"
+  version = "v4.1.0"
+
+[[projects]]
   digest = "1:a35d141bba894725d1aa63523e146ab83c30475d23970ef402165eb96bd5907a"
   name = "github.com/gogo/protobuf"
   packages = [
@@ -31,14 +39,6 @@
   pruneopts = "NUT"
   revision = "636bf0302bc95575d69441b25a2603156ffdddf1"
   version = "v1.1.1"
-
-[[projects]]
-  branch = "master"
-  digest = "1:e2b86e41f3d669fc36b50d31d32d22c8ac656c75aa5ea89717ce7177e134ff2a"
-  name = "github.com/golang/glog"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "23def4e6c14b4da8ac2ed8007337bc5eb5007998"
 
 [[projects]]
   digest = "1:224dbf3a601f51cbf47824d46be29562fb1e897ca0ed0908a56b0b79ec71d914"
@@ -334,7 +334,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0aac630281e8a44312f031a20d82b409122bab43c438ebca81df1c31d1804606"
+  digest = "1:114568926a27dc8e6304830dbe625d11467e565274010aeab708807db814f964"
   name = "k8s.io/api"
   packages = [
     "admissionregistration/v1alpha1",
@@ -342,6 +342,7 @@
     "apps/v1",
     "apps/v1beta1",
     "apps/v1beta2",
+    "auditregistration/v1alpha1",
     "authentication/v1",
     "authentication/v1beta1",
     "authorization/v1",
@@ -353,6 +354,7 @@
     "batch/v1beta1",
     "batch/v2alpha1",
     "certificates/v1beta1",
+    "coordination/v1",
     "coordination/v1beta1",
     "core/v1",
     "events/v1beta1",
@@ -370,7 +372,7 @@
     "storage/v1beta1",
   ]
   pruneopts = "NUT"
-  revision = "b7bd5f2d334ce968edc54f5fdb2ac67ce39c56d5"
+  revision = "173ce66c1e39d1d0f56e0b3347ff2988068aecd0"
 
 [[projects]]
   branch = "master"
@@ -424,7 +426,8 @@
   revision = "195a1699ff5cb7fcf4584a4141316e96f39e0f5a"
 
 [[projects]]
-  digest = "1:42a707f09f48a7bf410af93f72784d6fe03750f7e038be395f5aea34c3aa1ad4"
+  branch = "master"
+  digest = "1:5e2edbf89362abfd577f7a18e98ad1c0bb139598b0edd3ee39f05755cf1ff61f"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
@@ -459,8 +462,7 @@
     "util/retry",
   ]
   pruneopts = "NUT"
-  revision = "1638f8970cefaa404ff3a62950f88b08292b2696"
-  version = "v9.0.0"
+  revision = "7ab9b6348c017e7858f7614f5b0af086e893a360"
 
 [[projects]]
   branch = "master"
@@ -525,7 +527,6 @@
     "github.com/gogo/protobuf/jsonpb",
     "github.com/gogo/protobuf/proto",
     "github.com/gogo/protobuf/types",
-    "github.com/golang/glog",
     "github.com/golang/protobuf/jsonpb",
     "github.com/golang/protobuf/proto",
     "github.com/sirupsen/logrus",
@@ -539,6 +540,7 @@
     "k8s.io/apimachinery/pkg/runtime/schema",
     "k8s.io/apimachinery/pkg/runtime/serializer",
     "k8s.io/apimachinery/pkg/types",
+    "k8s.io/apimachinery/pkg/util/runtime",
     "k8s.io/apimachinery/pkg/watch",
     "k8s.io/client-go/discovery",
     "k8s.io/client-go/discovery/fake",

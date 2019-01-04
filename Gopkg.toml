@@ -40,6 +40,10 @@ required = [
   name = "k8s.io/apimachinery"
   branch = "master"
 
+[[constraint]]
+  name = "k8s.io/client-go"
+  branch = "master"
+
 [prune]
   non-go = true
   go-tests = true

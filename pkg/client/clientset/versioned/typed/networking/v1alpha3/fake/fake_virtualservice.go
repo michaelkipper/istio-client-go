@@ -1,6 +1,6 @@
 /*
-Portions Copyright 2018 The Kubernetes Authors.
-Portions Copyright 2018 Aspen Mesh Authors.
+Portions Copyright 2019 The Kubernetes Authors.
+Portions Copyright 2019 Aspen Mesh Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ func (c *FakeVirtualServices) List(opts v1.ListOptions) (result *v1alpha3.Virtua
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha3.VirtualServiceList{}
+	list := &v1alpha3.VirtualServiceList{ListMeta: obj.(*v1alpha3.VirtualServiceList).ListMeta}
 	for _, item := range obj.(*v1alpha3.VirtualServiceList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
@@ -120,7 +120,7 @@ func (c *FakeVirtualServices) DeleteCollection(options *v1.DeleteOptions, listOp
 // Patch applies the patch and returns the patched virtualService.
 func (c *FakeVirtualServices) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha3.VirtualService, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(virtualservicesResource, c.ns, name, data, subresources...), &v1alpha3.VirtualService{})
+		Invokes(testing.NewPatchSubresourceAction(virtualservicesResource, c.ns, name, pt, data, subresources...), &v1alpha3.VirtualService{})
 
 	if obj == nil {
 		return nil, err
