@@ -13,7 +13,6 @@ import (
 )
 
 func Test_Sidecar(t *testing.T) {
-	// This was extracted from a call in another test to Kubernetes.
 	buffer := bytes.NewBufferString(`{
 		"apiVersion":"networking.istio.io/v1alpha3",
 		"kind":"Sidecar",
@@ -22,19 +21,41 @@ func Test_Sidecar(t *testing.T) {
 			"namespace":"istio-system"
 		},
 		"spec":{
+			"workload_selector":{
+				"labels":{
+					"foo":"bar"
+				}
+			},
+			"ingress":[
+				{
+					"port":{
+						"number": 123
+					}
+				}
+			],
+			"egress":[
+				{
+					"port":{
+						"number": 456
+					}
+				}
+			]
 		}
 	}`)
 
-	vs := Sidecar{}
-	err := json.Unmarshal(buffer.Bytes(), &vs)
+	sidecar := Sidecar{}
+	err := json.Unmarshal(buffer.Bytes(), &sidecar)
 	assert.Equal(t, nil, err, "Could not unmarshal message")
-	vss := vs.GetSpecMessage().(*istiov1alpha3.Sidecar)
+	vss := sidecar.GetSpecMessage().(*istiov1alpha3.Sidecar)
 	log.WithFields(log.Fields{
-		"obj":  fmt.Sprintf("%+v", vs),
+		"obj":  fmt.Sprintf("%+v", sidecar),
 		"spec": vss.String(),
 	}).Info("Unmarshalled message")
 
-	assert.Equal(t, "networking.istio.io/v1alpha3", vs.TypeMeta.APIVersion)
-	assert.Equal(t, "Sidecar", vs.TypeMeta.Kind)
-	assert.Equal(t, "test-sidecar", vs.GetObjectMeta().GetName())
+	assert.Equal(t, "networking.istio.io/v1alpha3", sidecar.TypeMeta.APIVersion)
+	assert.Equal(t, "Sidecar", sidecar.TypeMeta.Kind)
+	assert.Equal(t, "test-sidecar", sidecar.GetObjectMeta().GetName())
+	assert.Equal(t, "bar", sidecar.Spec.WorkloadSelector.Labels["foo"])
+	assert.Equal(t, uint32(123), sidecar.Spec.Ingress[0].Port.Number)
+	assert.Equal(t, uint32(456), sidecar.Spec.Egress[0].Port.Number)
 }
