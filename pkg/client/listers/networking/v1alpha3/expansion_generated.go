@@ -35,6 +35,14 @@ type GatewayListerExpansion interface{}
 // GatewayNamespaceLister.
 type GatewayNamespaceListerExpansion interface{}
 
+// SidecarListerExpansion allows custom methods to be added to
+// SidecarLister.
+type SidecarListerExpansion interface{}
+
+// SidecarNamespaceListerExpansion allows custom methods to be added to
+// SidecarNamespaceLister.
+type SidecarNamespaceListerExpansion interface{}
+
 // VirtualServiceListerExpansion allows custom methods to be added to
 // VirtualServiceLister.
 type VirtualServiceListerExpansion interface{}
