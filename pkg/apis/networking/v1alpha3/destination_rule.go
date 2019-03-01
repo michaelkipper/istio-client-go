@@ -15,16 +15,23 @@ limitations under the License.
 package v1alpha3
 
 import (
-	"github.com/golang/protobuf/proto"
+	"bufio"
+	"bytes"
+
+	"github.com/gogo/protobuf/jsonpb"
+	"github.com/gogo/protobuf/proto"
+
 	istiov1alpha3 "istio.io/api/networking/v1alpha3"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DestinationRule is a Istio DestinationRule resource
+// DestinationRule is an Istio DestinationRule resource
 type DestinationRule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -53,6 +60,31 @@ type DestinationRuleSpec struct {
 
 // DeepCopyInto is a deepcopy function, copying the receiver, writing into out. in must be non-nil.
 // Based of https://github.com/istio/istio/blob/release-0.8/pilot/pkg/config/kube/crd/types.go#L450
-func (in *DestinationRuleSpec) DeepCopyInto(out *DestinationRuleSpec) {
-	*out = *in
+func (drs *DestinationRuleSpec) DeepCopyInto(out *DestinationRuleSpec) {
+	*out = *drs
+}
+
+func (drs *DestinationRuleSpec) MarshalJSON() ([]byte, error) {
+	buffer := bytes.Buffer{}
+	writer := bufio.NewWriter(&buffer)
+	marshaler := jsonpb.Marshaler{}
+	err := marshaler.Marshal(writer, &drs.DestinationRule)
+	if err != nil {
+		log.WithField("error", err).Error("Could not marshal DestinationRuleSpec")
+		return nil, err
+	}
+
+	writer.Flush()
+	return buffer.Bytes(), nil
+}
+
+func (drs *DestinationRuleSpec) UnmarshalJSON(b []byte) error {
+	reader := bytes.NewReader(b)
+	unmarshaler := jsonpb.Unmarshaler{}
+	err := unmarshaler.Unmarshal(reader, &drs.DestinationRule)
+	if err != nil {
+		log.WithField("error", err).Error("Could not unmarshal DestinationRuleSpec")
+		return err
+	}
+	return nil
 }
