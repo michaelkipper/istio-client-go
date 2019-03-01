@@ -79,17 +79,7 @@ func (c *Clientset) AuthenticationV1alpha1() authenticationv1alpha1.Authenticati
 	return &fakeauthenticationv1alpha1.FakeAuthenticationV1alpha1{Fake: &c.Fake}
 }
 
-// Authentication retrieves the AuthenticationV1alpha1Client
-func (c *Clientset) Authentication() authenticationv1alpha1.AuthenticationV1alpha1Interface {
-	return &fakeauthenticationv1alpha1.FakeAuthenticationV1alpha1{Fake: &c.Fake}
-}
-
 // NetworkingV1alpha3 retrieves the NetworkingV1alpha3Client
 func (c *Clientset) NetworkingV1alpha3() networkingv1alpha3.NetworkingV1alpha3Interface {
-	return &fakenetworkingv1alpha3.FakeNetworkingV1alpha3{Fake: &c.Fake}
-}
-
-// Networking retrieves the NetworkingV1alpha3Client
-func (c *Clientset) Networking() networkingv1alpha3.NetworkingV1alpha3Interface {
 	return &fakenetworkingv1alpha3.FakeNetworkingV1alpha3{Fake: &c.Fake}
 }

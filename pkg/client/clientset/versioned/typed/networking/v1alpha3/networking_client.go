@@ -30,6 +30,8 @@ type NetworkingV1alpha3Interface interface {
 	RESTClient() rest.Interface
 	DestinationRulesGetter
 	GatewaysGetter
+	ServiceEntriesGetter
+	SidecarsGetter
 	VirtualServicesGetter
 }
 
@@ -44,6 +46,14 @@ func (c *NetworkingV1alpha3Client) DestinationRules(namespace string) Destinatio
 
 func (c *NetworkingV1alpha3Client) Gateways(namespace string) GatewayInterface {
 	return newGateways(c, namespace)
+}
+
+func (c *NetworkingV1alpha3Client) ServiceEntries(namespace string) ServiceEntryInterface {
+	return newServiceEntries(c, namespace)
+}
+
+func (c *NetworkingV1alpha3Client) Sidecars(namespace string) SidecarInterface {
+	return newSidecars(c, namespace)
 }
 
 func (c *NetworkingV1alpha3Client) VirtualServices(namespace string) VirtualServiceInterface {
