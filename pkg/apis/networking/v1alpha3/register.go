@@ -52,6 +52,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&DestinationRuleList{},
 		&Sidecar{},
 		&SidecarList{},
+		&ServiceEntry{},
+		&ServiceEntrylist{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil
