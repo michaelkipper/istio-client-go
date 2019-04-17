@@ -3,3 +3,6 @@ language: go
 go:
 - 1.12.x
 
+before_install:
+- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | INSTALL_DIRECTORY=$GOPATH/bin sh
+
