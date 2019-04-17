@@ -53,7 +53,7 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&Sidecar{},
 		&SidecarList{},
 		&ServiceEntry{},
-		&ServiceEntrylist{},
+		&ServiceEntryList{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil
